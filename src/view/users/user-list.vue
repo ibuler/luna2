@@ -1,0 +1,182 @@
+<style>
+  .ivu-table th, .ivu-table td {
+    height: 39px;
+    border-bottom: 1px solid #e8eaec;
+  }
+  .ivu-table-stripe-even td{
+    background-color: #f9f9f9;
+  }
+  /*奇数行*/
+  .ivu-table-stripe-odd td{
+    background-color: #fff !important;
+  }
+
+  .action-panel {
+    padding-bottom: 10px;
+  }
+
+  .setting {
+    font-size: 20px;
+    padding-left: 5px;
+    text-align: right;
+  }
+
+  .pagination {
+    margin-top: 10px;
+    text-align: right;
+  }
+
+  .filter-header {
+    padding-left: 5px;
+    color: #a2a2a2;
+  }
+</style>
+<template>
+  <Card title="用户列表" :disHover="true">
+    <Row class="action-panel">
+      <Col class="action" span="15">
+         <BtnDropdown @on-action-click="handleActionClick"></BtnDropdown>
+      </Col>
+      <Col class="filters" span="6">
+        <div class="filter-field">
+          <AutoComplete
+            :ref="'input2'"
+            placeholder="搜索"
+            icon="ios-search"
+            v-model="value4"
+            clearable
+            @on-select="handleSelect"
+            class="filter-auto-field"
+            >
+            <div class="filter-header">
+              <span>根据资源筛选</span>
+              <!--<a href="https://www.google.com/search?q=iView" target="_blank">更多</a>-->
+            </div>
+            <Option v-for="option in filterFields" :value="option.title" :key="option.key">
+              <span>{{ option.title }}</span>
+            </Option>
+          </AutoComplete>
+        </div>
+
+      </Col>
+      <Col span="3" class="setting">
+        <ButtonGroup>
+          <Button type="default"><Icon type="md-refresh" /></Button>
+          <Button type="default"><Icon type="ios-settings" /></Button>
+          <Button type="default"><Icon type="md-arrow-down" /></Button>
+        </ButtonGroup>
+      </Col>
+    </Row>
+    <Row>
+      <Table border stripe :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
+    </Row>
+    <Row>
+      <div class="pagination">
+        <Page :total="100" show-total show-sizer show-elevator />
+      </div>
+    </Row>
+  </Card>
+</template>
+
+<script>
+  import BtnDropdown from '_c/btn-dropdown'
+  export default {
+    name: 'user-list',
+    components: {
+      BtnDropdown
+    },
+    data() {
+      return {
+        value4: '',
+        actions: [{
+          'title': 'Create1'
+        }],
+        filterFields: [
+          {
+            'title': '用户名',
+            'key': 'username'
+          }, {
+            'title': '姓名',
+            'key': 'name'
+          },
+          {
+            'title': '年龄',
+            'key': 'age'
+          }
+        ],
+        columns1: [
+          {
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          },
+          {
+            title: '姓名',
+            key: 'name',
+            render: (h, params) => {
+              const row = params.row
+              const name = row.name
+              return h('a', {
+                attrs: {
+                  href: 'http://www.baidu.com'
+                }
+              }, name)
+            }
+          },
+          {
+            title: '年龄',
+            key: 'age'
+          },
+          {
+            title: '地址',
+            key: 'address'
+          }
+        ],
+        data1: [
+          {
+            name: 'John Brown',
+            age: 18,
+            address: 'New York No. 1 Lake Park',
+            date: '2016-10-03'
+          },
+          {
+            name: 'Jim Green',
+            age: 24,
+            address: 'London No. 1 Lake Park',
+            date: '2016-10-01'
+          },
+          {
+            name: 'Joe Black',
+            age: 30,
+            address: 'Sydney No. 1 Lake Park',
+            date: '2016-10-02'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          }
+        ]
+      }
+    },
+    methods: {
+      rowClassName: function (row, index) {
+        if (index % 2 === 0) {
+          return 'ivu-table-stripe-even'
+        } else return 'ivu-table-stripe-odd'
+      },
+      handleSelect(value) {
+        this.value4 = value + ':'
+      // this.$refs.input2.$refs.input.focus();
+      },
+      handleActionClick(name) {
+        console.log(name)
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
