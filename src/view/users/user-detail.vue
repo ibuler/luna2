@@ -1,10 +1,18 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-  </el-tabs>
+  <i-card :disHover="true">
+    <i-tabs v-model="activeName" @tab-click="handleClick" >
+      <i-tab-pane label="用户详情" name="first">
+        <i-row>
+          <i-col span="16">
+            <i-card title="广宏伟" :disHover="true">
+              hello
+            </i-card>
+          </i-col>
+        </i-row>
+      </i-tab-pane>
+      <i-tab-pane label="用户资产" name="second">用户资产</i-tab-pane>
+    </i-tabs>
+  </i-card>
 </template>
 
 <script>
@@ -12,7 +20,7 @@
     name: 'user-detail',
     data() {
       return {
-        activeName: 'second'
+        activeName: 'first'
       }
     },
     methods: {

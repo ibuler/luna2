@@ -72,9 +72,11 @@ export default [
         path: 'users/:id',
         name: 'user-detail',
         meta: {
+          title: '用户详情',
+          hideInBread: false,
           hideInMenu: true
         },
-        component: () => import('@/view/users/user-list.vue')
+        component: () => import('@/view/users/user-detail.vue')
       },
       {
         path: 'groups',
