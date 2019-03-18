@@ -19,7 +19,11 @@
 @menu-hover-color: #293846;
 
 body {
-  -webkit-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+button {
+  -webkit-font-smoothing: antialiased;
 }
 
 .ivu-tag-primary, .ivu-tag-primary.ivu-tag-dot .ivu-tag-dot-inner {
@@ -84,7 +88,7 @@ li.ivu-menu-item:last-child {
 }
 //
 .ivu-menu, .ivu-menu-item, .ivu-menu .ivu-menu-submenu-title:not(.ivu-menu-item-active) {
-  font-size: 13x;
+  font-size: 13px;
   color: #a7b1c2 !important;
   font-weight: 900 !important;
 }
@@ -103,9 +107,12 @@ li.ivu-menu-item:last-child {
 }
 
 
-
-
 .table > thead > tr > th {
   border-bottom: 1px solid #DDDDDD;
   vertical-align: bottom;
 }
+
+.ivu-card {
+  font-size: 13px;
+}
+

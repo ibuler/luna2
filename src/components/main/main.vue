@@ -31,6 +31,18 @@
           </Content>
         </Layout>
       </Content>
+      <Footer>
+        <div class="footer fixed">
+          <div style="float: right">
+            Version <strong>1.4.8-91
+          </strong> GPLv2.
+            <!--<img style="display: none" src="http://www.jumpserver.org/img/evaluate_avatar1.jpg">-->
+          </div>
+          <div>
+            <strong>Copyright</strong>  北京堆栈科技有限公司 © 2014-2019
+          </div>
+        </div>
+      </Footer>
     </Layout>
   </Layout>
 </template>

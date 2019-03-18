@@ -4,7 +4,7 @@
   </Button>
   <Dropdown v-else trigger="click" transfer @on-click="handleActionClick">
     <ButtonGroup>
-      <Button :icon="defaultAction.icon" :name="defaultActionName" @click="handleActionClick(defaultActionName)" :to="defaultAction.to" :type="type">
+      <Button :icon="defaultAction.icon" @click.native.stop :name="defaultActionName" @click="handleActionClick(defaultActionName)" :to="defaultAction.to" :type="type">
         {{ defaultAction.title }}
       </Button>
       <Button :type="type">

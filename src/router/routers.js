@@ -53,17 +53,26 @@ export default [
   {
     path: '/users',
     name: 'users',
+    redirect: { name: 'user-list' },
     meta: {
       icon: 'md-cloud-upload',
-      title: 'Users'
+      title: '用户管理'
     },
     component: Main,
     children: [
       {
-        path: '',
+        path: 'users',
         name: 'user-list',
         meta: {
-          title: 'User list'
+          title: '用户列表'
+        },
+        component: () => import('@/view/users/user-list.vue')
+      },
+      {
+        path: 'users/:id',
+        name: 'user-detail',
+        meta: {
+          hideInMenu: true
         },
         component: () => import('@/view/users/user-list.vue')
       },
@@ -102,7 +111,7 @@ export default [
     name: 'components',
     meta: {
       icon: 'logo-buffer',
-      title: '组件'
+      title: '资产管理'
     },
     component: Main,
     children: [
@@ -238,7 +247,7 @@ export default [
     name: 'excel',
     meta: {
       icon: 'ios-stats',
-      title: 'EXCEL导入导出'
+      title: '导入导出'
     },
     component: Main,
     children: [

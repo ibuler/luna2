@@ -32,12 +32,12 @@
   }
 </style>
 <template>
-  <Card title="用户列表" :disHover="true">
-    <Row class="action-panel">
-      <Col class="action" span="15">
-         <BtnDropdown @on-action-click="handleActionClick"></BtnDropdown>
-      </Col>
-      <Col class="filters" span="6">
+  <i-card title="用户列表" :disHover="true">
+    <i-row class="action-panel">
+      <i-col class="action" span="15">
+         <BtnDropdown @on-action-click="handleActionClick" :actions="actions"></BtnDropdown>
+      </i-col>
+      <i-col class="filters" span="6">
         <div class="filter-field">
           <AutoComplete
             :ref="'input2'"
@@ -58,24 +58,41 @@
           </AutoComplete>
         </div>
 
-      </Col>
-      <Col span="3" class="setting">
-        <ButtonGroup>
+      </i-col>
+      <i-col span="3" class="setting">
+        <i-button-group>
           <Button type="default"><Icon type="md-refresh" /></Button>
           <Button type="default"><Icon type="ios-settings" /></Button>
           <Button type="default"><Icon type="md-arrow-down" /></Button>
-        </ButtonGroup>
-      </Col>
-    </Row>
-    <Row>
-      <Table border stripe :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
-    </Row>
-    <Row>
+        </i-button-group>
+      </i-col>
+    </i-row>
+    <i-row>
+      <i-table border stripe :row-class-name="rowClassName" :columns="columns1" :data="data1">
+        <template slot-scope="{ row }" slot="name">
+          <a>{{ row.name }}</a>
+        </template>
+        <template slot-scope="{ row, index }" slot="action">
+          <i-dropdown trigger="click">
+            <Button type="primary" size="small">
+              操作
+              <Icon type="md-more" />
+            </Button>
+            <i-dropdown-menu slot="list">
+              <i-dropdown-item>更新</i-dropdown-item>
+              <i-dropdown-item disabled>删除</i-dropdown-item>
+              <i-dropdown-item divided>测试</i-dropdown-item>
+            </i-dropdown-menu>
+          </i-dropdown>
+        </template>
+      </i-table>
+    </i-row>
+    <i-row>
       <div class="pagination">
         <Page :total="100" show-total show-sizer show-elevator />
       </div>
-    </Row>
-  </Card>
+    </i-row>
+  </i-card>
 </template>
 
 <script>
@@ -88,14 +105,23 @@
     data() {
       return {
         value4: '',
-        actions: [{
-          'title': 'Create1'
-        }],
+        actions: [
+          {
+            'title': '创建用户'
+          },
+          {
+            'title': '批量导入'
+          },
+          {
+            'title': '批量更新'
+          }
+        ],
         filterFields: [
           {
             'title': '用户名',
             'key': 'username'
-          }, {
+          },
+          {
             'title': '姓名',
             'key': 'name'
           },
@@ -112,16 +138,7 @@
           },
           {
             title: '姓名',
-            key: 'name',
-            render: (h, params) => {
-              const row = params.row
-              const name = row.name
-              return h('a', {
-                attrs: {
-                  href: 'http://www.baidu.com'
-                }
-              }, name)
-            }
+            slot: 'name'
           },
           {
             title: '年龄',
@@ -130,6 +147,12 @@
           {
             title: '地址',
             key: 'address'
+          },
+          {
+            title: '动作',
+            slot: 'action',
+            width: 150,
+            align: 'center'
           }
         ],
         data1: [
