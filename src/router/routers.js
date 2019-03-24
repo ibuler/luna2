@@ -69,6 +69,16 @@ export default [
         component: () => import('@/view/users/user-list.vue')
       },
       {
+        path: 'users/create',
+        name: 'user-create',
+        meta: {
+          title: '用户创建',
+          hideInBread: false,
+          hideInMenu: true
+        },
+        component: () => import('@/view/users/user-create.vue')
+      },
+      {
         path: 'users/:id',
         name: 'user-detail',
         meta: {

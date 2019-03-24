@@ -1,0 +1,103 @@
+@primary-color: #1ab394;
+@info-color: #23c6c8;
+@success-color: #1a7bb9;
+@warning-color: #f7a54a;
+@error-color: #ec4758;
+@layout-sider-background: #2f4050;
+@font-family: "open sans", "Helvetica Neue", "微软雅黑", Helvetica, Arial, sans-serif;
+// 左侧menu背景色
+@menu-dark-title: #2f4050;
+@menu-dark-active-bg: #293846;
+@menu-dark-subsidiary-color: #a7b1c2;
+@menu-dark-group-title-color: red;
+@btn-padding-base: 5px 10px;
+@btn-border-radius: 3px;
+@btn-font-weight: bold;
+
+@menu-hover-color: #293846;
+
+body {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+button {
+  -webkit-font-smoothing: antialiased;
+}
+
+.ivu-tag-primary, .ivu-tag-primary.ivu-tag-dot .ivu-tag-dot-inner {
+  background: @primary-color;
+}
+
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened {
+  background: @menu-hover-color;
+  border-left: 4px solid #19aa8d;
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
+  background: @menu-hover-color;
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover {
+  color: #fff !important;
+  background: @menu-hover-color;
+}
+
+
+//// 一级菜单被选中
+.ivu-menu.ivu-menu-dark.ivu-menu-vertical > .ivu-menu-item.ivu-menu-item-active {
+  color: #ffffff;
+  background: @menu-hover-color;
+  border-left: 4px solid #19aa8d;
+}
+//
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover {
+  background: @menu-hover-color;
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+  border-right: none;
+  color: #fff !important;
+  background: @menu-hover-color !important;
+}
+
+li.ivu-menu-item:last-child {
+  padding-bottom: 15px !important;
+}
+
+.ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
+  padding: 12px 22px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.ivu-menu-submenu .ivu-menu .ivu-menu-item {
+  padding: 5px 22px;
+}
+//
+.ivu-menu, .ivu-menu-item, .ivu-menu .ivu-menu-submenu-title:not(.ivu-menu-item-active) {
+  font-size: 13px;
+  color: #a7b1c2 !important;
+  font-weight: 900 !important;
+}
+//
+//.ivu-menu-item-active .ivu-menu-submenu-title {
+//  color: red !important;
+//}
+//
+.ivu-menu-item > i {
+  margin-right: 8px !important;
+}
+//
+.ivu-menu .ivu-icon {
+  padding-bottom: 3px;
+  width: 14px;
+}
+
+.ivu-card-body {
+  padding: 15px 20px 20px 20px;
+}

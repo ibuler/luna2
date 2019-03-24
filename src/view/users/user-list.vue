@@ -108,7 +108,8 @@
         value4: '',
         actions: [
           {
-            'title': '创建用户'
+            'title': '创建用户',
+            'to': { 'name': 'user-create' }
           },
           {
             'title': '批量导入'
