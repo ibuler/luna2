@@ -81,8 +81,11 @@
         return this.$route.matched.map(item => item.name).filter(item => item !== name)
       },
       updateOpenName(name) {
-        if (name === this.$config.homeName) this.openedNames = []
-        else this.openedNames = this.getOpenedNamesByActiveName(name)
+        if (name === this.$config.homeName) {
+          this.openedNames = []
+        } else {
+          this.openedNames = this.getOpenedNamesByActiveName(name)
+        }
       }
     },
     computed: {
@@ -92,8 +95,12 @@
     },
     watch: {
       activeName(name) {
-        if (this.accordion) this.openedNames = this.getOpenedNamesByActiveName(name)
-        else this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name))
+        if (this.accordion) {
+          this.openedNames = this.getOpenedNamesByActiveName(name)
+        } else {
+          this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name))
+        }
+        console.log(this.activeName)
       },
       openNames(newNames) {
         this.openedNames = newNames
