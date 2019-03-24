@@ -1,24 +1,5 @@
-import Card from 'iview/src/components/card'
+import LCard from './card.vue'
+import LTableCard from './table-card.vue'
 
-const LCard = {
-  extends: Card,
-  propsData: {
-    type: {
-      type: String,
-      default: 'gray'
-    }
-  },
-  data() {
-    return {
-      disHover: false
-    }
-  },
-  computed: {
-    headClasses () {
-      return `${prefixCls}-head ${prefixCls}-${type}`
-    }
-  }
-
-}
-
+export { LCard, LTableCard }
 export default LCard

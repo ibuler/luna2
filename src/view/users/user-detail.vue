@@ -1,41 +1,4 @@
 <style>
-  .user-profile .ivu-card-head {
-    background: #fafafa;
-  }
-
-  .shortcut .ivu-card-head {
-    background: #1ab394;
-  }
-
-  .shortcut .ivu-card-head p {
-    color: #fff;
-    font-weight: normal;
-  }
-
-  .ivu-card table {
-    width: 100%;
-  }
-
-  .ivu-card td {
-    border-bottom: 1px solid #eee;
-    padding: 8px 0;
-  }
-
-  .ivu-card tr:last-child td {
-    border-bottom: none;
-    padding: 8px 0;
-  }
-
-  .ivu-card tr {
-    padding: 10px 0;
-  }
-
-  .ivu-card .key {
-    font-size: 14px;
-    color: #2e2e2e;
-    word-break: break-word;
-  }
-
   .shortcut-right * {
     float: right;
   }
@@ -44,22 +7,10 @@
     padding: 1px 10px 2px;
   }
 
-  .usergroup .ivu-card-head {
-    background-color: #f7a54a;
-  }
-
-  .usergroup input:hover {
-    border-color: #f7a54a;
-  }
-
-  .usergroup .ivu-card-head p {
-    color: #fff;
-  }
-
 </style>
 <template>
   <div>
-    <i-card title="用户 ibuler" :disHover="true">
+    <l-card title="用户 ibuler">
       <span slot="extra">
         <i-button type="primary">
           <fa :icon="['far', 'edit']" />
@@ -74,17 +25,17 @@
         <i-tab-pane label="用户详情" name="first">
           <i-row>
             <i-col span="14">
-              <i-card :disHover="true" title="广宏伟" class="user-profile" key="user-profile">
-                <table>
-                  <tr v-for="(value, key) in user" :key="key">
-                    <td class="key">{{ key | capitalize }}:</td>
-                    <td class="value"><strong>{{ value }}</strong></td>
-                  </tr>
-                </table>
-              </i-card>
+              <l-table-card type="gray" title="广宏伟" class="user-profile" key="user-profile" :data="user">
+                <!--<table>-->
+                  <!--<tr v-for="(value, key) in user" :key="key">-->
+                    <!--<td class="key">{{ key | capitalize }}:</td>-->
+                    <!--<td class="value"><strong>{{ value }}</strong></td>-->
+                  <!--</tr>-->
+                <!--</table>-->
+              </l-table-card>
             </i-col>
             <i-col span="9" offset="1">
-              <i-card :disHover="true" key="shortcut" class="shortcut">
+              <l-table-card type="primary" key="shortcut" class="shortcut" valueFloat="right">
                 <p slot="title">
                   <fa :icon="['fas', 'info-circle']"></fa>
                   快捷方式
@@ -119,9 +70,9 @@
                     </td>
                   </tr>
                 </table>
-              </i-card>
+              </l-table-card>
 
-              <i-card :disHover="true" key="usergroup" class="usergroup" style="margin-top: 10px">
+              <l-card type="warning" key="usergroup" class="usergroup" style="margin-top: 10px">
                 <p slot="title">
                   <fa :icon="['fas', 'users']"></fa>
                   用户组
@@ -130,27 +81,31 @@
                   <i-option v-for="item in groups" :value="item.value" :key="item.value">{{ item.label }}</i-option>
                 </i-select>
                 <i-button type="warning" style="margin-top: 10px">
-                  提交
+                  加入
                 </i-button>
-
-              </i-card>
+              </l-card>
             </i-col>
           </i-row>
         </i-tab-pane>
         <i-tab-pane label="用户资产" name="second">用户资产</i-tab-pane>
       </i-tabs>
-    </i-card>
+    </l-card>
   </div>
 </template>
 
 <script>
+  import { LCard, LTableCard } from '_c/card'
   export default {
     name: 'user-detail',
+    components: {
+      LCard,
+      LTableCard
+    },
     data() {
       return {
         activeName: 'first',
         user: {
-          name: '广宏伟',
+          姓名: '广宏伟',
           username: 'ibuler',
           email: 'ibuler@qq.com',
           role: '用户',
@@ -161,6 +116,10 @@
           dateCreated: '2018-01-01 00:00:00',
           dateUpdated: '2018-02-01 00:00:00',
           comment: '无'
+        },
+        shortcuts: {
+          '快捷方式': '<i-switch :value="1" />'
+
         },
         groups: [
           {

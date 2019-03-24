@@ -53,7 +53,7 @@
     "eslint-plugin-cypress": "^2.0.1",
     "iview-loader": "^1.2.2",
     "less": "^2.7.3",
-    "less-loader": "^4.0.5",
+    "less-loader": "^4.1.0",
     "lint-staged": "^6.0.0",
     "mockjs": "^1.0.1-beta3",
     "vue-template-compiler": "^2.5.13"
