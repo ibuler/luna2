@@ -12,6 +12,11 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-brands-svg-icons": "^5.8.1",
+    "@fortawesome/free-regular-svg-icons": "^5.8.1",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
     "clipboard": "^2.0.0",
     "codemirror": "^5.38.0",
@@ -20,9 +25,11 @@
     "dayjs": "^1.7.7",
     "echarts": "^4.0.4",
     "html2canvas": "^1.0.0-alpha.12",
+    "i": "^0.3.6",
     "iview": "^3.2.2",
     "iview-area": "^1.5.17",
     "js-cookie": "^2.2.0",
+    "npm": "^6.9.0",
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
     "tree-table-vue": "^1.1.0",

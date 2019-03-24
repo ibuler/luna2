@@ -44,18 +44,36 @@
     padding: 1px 10px 2px;
   }
 
+  .usergroup .ivu-card-head {
+    background-color: #f7a54a;
+  }
+
+  .usergroup input:hover {
+    border-color: #f7a54a;
+  }
+
+  .usergroup .ivu-card-head p {
+    color: #fff;
+  }
+
 </style>
 <template>
   <div>
     <i-card title="用户 ibuler" :disHover="true">
       <span slot="extra">
-        <i-button type="primary">编辑</i-button>
-        <i-button style="margin-left: 5px">删除</i-button>
+        <i-button type="primary">
+          <fa :icon="['far', 'edit']" />
+          编辑
+        </i-button>
+        <i-button style="margin-left: 5px">
+          <fa :icon="['far', 'trash-alt']" />
+          删除
+        </i-button>
       </span>
       <i-tabs v-model="activeName" @tab-click="handleClick" >
         <i-tab-pane label="用户详情" name="first">
           <i-row>
-            <i-col span="12">
+            <i-col span="14">
               <i-card :disHover="true" title="广宏伟" class="user-profile" key="user-profile">
                 <table>
                   <tr v-for="(value, key) in user" :key="key">
@@ -65,12 +83,18 @@
                 </table>
               </i-card>
             </i-col>
-            <i-col span="11" offset="1">
-              <Card :disHover="true" title="快捷方式" key="shortcut" class="shortcut">
+            <i-col span="9" offset="1">
+              <i-card :disHover="true" key="shortcut" class="shortcut">
+                <p slot="title">
+                  <fa :icon="['fas', 'info-circle']"></fa>
+                  快捷方式
+                </p>
                 <table>
                   <tr>
                     <td>激活中:</td>
-                    <td class="shortcut-right"><i-switch value="1" /></td>
+                    <td class="shortcut-right">
+                      <i-switch :value="1" />
+                    </td>
                   </tr>
                   <tr>
                     <td>强制启用MFA:</td>
@@ -95,7 +119,21 @@
                     </td>
                   </tr>
                 </table>
-              </Card>
+              </i-card>
+
+              <i-card :disHover="true" key="usergroup" class="usergroup" style="margin-top: 10px">
+                <p slot="title">
+                  <fa :icon="['fas', 'users']"></fa>
+                  用户组
+                </p>
+                <i-select filterable>
+                  <i-option v-for="item in groups" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+                </i-select>
+                <i-button type="warning" style="margin-top: 10px">
+                  提交
+                </i-button>
+
+              </i-card>
             </i-col>
           </i-row>
         </i-tab-pane>
@@ -123,7 +161,17 @@
           dateCreated: '2018-01-01 00:00:00',
           dateUpdated: '2018-02-01 00:00:00',
           comment: '无'
-        }
+        },
+        groups: [
+          {
+            value: '1',
+            label: '用户组1'
+          },
+          {
+            value: '2',
+            label: '用户组2'
+          }
+        ]
       }
     },
     methods: {
