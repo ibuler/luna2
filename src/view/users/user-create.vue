@@ -1,61 +1,64 @@
 <template>
   <i-card title="创建用户" :disHover="true">
-    <Form :model="formItem" :label-width="80">
+    <i-form :model="formItem" :label-width="120">
       <h3>账户</h3>
-      <FormItem label="名称">
-        <Input v-model="formItem.input" placeholder="Enter something..."></Input>
-      </FormItem>
-      <FormItem label="Select">
-        <Select v-model="formItem.select">
-          <Option value="beijing">New York</Option>
-          <Option value="shanghai">London</Option>
-          <Option value="shenzhen">Sydney</Option>
-        </Select>
-      </FormItem>
-      <FormItem label="DatePicker">
-        <Row>
-          <Col span="11">
-            <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
-          </Col>
-          <Col span="2" style="text-align: center">-</Col>
-          <Col span="11">
-            <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
-          </Col>
-        </Row>
-      </FormItem>
+      <i-form-item label="姓名" required>
+        <i-input ></i-input>
+      </i-form-item>
+      <i-form-item label="用户名" required>
+        <i-input ></i-input>
+      </i-form-item>
+      <i-form-item label="邮件" required>
+        <i-input type="email"></i-input>
+      </i-form-item>
+      <i-form-item label="用户组">
+        <i-select clearable filterable multiple>
+          <i-option value="beijing">New York</i-option>
+          <i-option value="shanghai">London</i-option>
+          <i-option value="shenzhen">Sydney</i-option>
+        </i-select>
+      </i-form-item>
       <div class="hr-line-dashed"></div>
-      <h3>其他</h3>
-      <FormItem label="Radio">
-        <RadioGroup v-model="formItem.radio">
-          <Radio label="male">Male</Radio>
-          <Radio label="female">Female</Radio>
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Checkbox">
-        <CheckboxGroup v-model="formItem.checkbox">
-          <Checkbox label="Eat"></Checkbox>
-          <Checkbox label="Sleep"></Checkbox>
-          <Checkbox label="Run"></Checkbox>
-          <Checkbox label="Movie"></Checkbox>
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="Switch">
-        <i-switch v-model="formItem.switch" size="large">
-          <span slot="open">On</span>
-          <span slot="close">Off</span>
-        </i-switch>
-      </FormItem>
-      <FormItem label="Slider">
-        <Slider v-model="formItem.slider" range></Slider>
-      </FormItem>
-      <FormItem label="Text">
-        <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="primary">Submit</Button>
-        <Button style="margin-left: 8px">Cancel</Button>
-      </FormItem>
-    </Form>
+      <h3>认证</h3>
+      <i-form-item label="密码">
+        <span>生成重置密码连接，通过邮件发送给用户</span>
+      </i-form-item>
+      <i-form-item label="MFA" required>
+        <i-radio-group>
+          <i-radio label="2">强制启用</i-radio>
+          <i-radio label="1">启用</i-radio>
+          <i-radio label="0">禁用</i-radio>
+        </i-radio-group>
+      </i-form-item>
+      <div class="hr-line-dashed"></div>
+      <h3>角色安全</h3>
+      <i-form-item label="角色">
+        <i-select>
+          <i-option value="0">用户</i-option>
+          <i-option value="0">管理员</i-option>
+        </i-select>
+      </i-form-item>
+      <i-form-item label="失效时期">
+        <i-date-picker type="date" style="width: 240px"></i-date-picker>
+      </i-form-item>
+      <div class="hr-line-dashed"></div>
+      <h3>个人信息</h3>
+      <i-form-item label="手机">
+        <i-input></i-input>
+      </i-form-item>
+      <i-form-item label="微信">
+        <i-input></i-input>
+      </i-form-item>
+      <i-form-item label="备注">
+        <i-input type="textarea"></i-input>
+      </i-form-item>
+      <div class="hr-line-dashed"></div>
+      <i-form-item>
+        <i-button type="primary">提交</i-button>
+        <i-button style="margin-left: 8px" html-type="reset">重置</i-button>
+      </i-form-item>
+    </i-form>
+
   </i-card>
 
 </template>
@@ -81,6 +84,13 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  .ivu-form-item {
+    padding-right: 73px;
+    padding-left: 40px;
+  }
+  .ivu-form  .ivu-form-item-label {
+    font-weight: 700;
+    font-size: 13px;
+  }
 </style>
