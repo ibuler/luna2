@@ -34,30 +34,11 @@
 <template>
   <i-card title="用户列表" :disHover="true">
     <i-row class="action-panel">
-      <i-col class="action" span="15">
+      <i-col class="action" span="12">
          <BtnDropdown @on-action-click="handleActionClick" :actions="actions"></BtnDropdown>
       </i-col>
-      <i-col class="filters" span="6">
-        <div class="filter-field">
-          <AutoComplete
-            :ref="'input2'"
-            placeholder="搜索"
-            icon="ios-search"
-            v-model="value4"
-            clearable
-            @on-select="handleSelect"
-            class="filter-auto-field"
-            >
-            <div class="filter-header">
-              <span>根据资源筛选</span>
-              <!--<a href="https://www.google.com/search?q=iView" target="_blank">更多</a>-->
-            </div>
-            <Option v-for="option in filterFields" :value="option.title" :key="option.key">
-              <span>{{ option.title }}</span>
-            </Option>
-          </AutoComplete>
-        </div>
-
+      <i-col class="filters" offset="3" span="6">
+        <l-table-filter></l-table-filter>
       </i-col>
       <i-col span="3" class="setting">
         <i-button-group>
@@ -98,10 +79,12 @@
 
 <script>
   import BtnDropdown from '_c/btn-dropdown'
+  import LTableFilter from '_c/table-filter'
   export default {
     name: 'user-list',
     components: {
-      BtnDropdown
+      BtnDropdown,
+      LTableFilter
     },
     data() {
       return {
