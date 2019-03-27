@@ -60,13 +60,11 @@
     },
     computed: {
       filterTitle () {
-        let title = ''
-        this.filterFields.forEach((value) => {
-          if (value.key === this.filterKey) {
-            title = value.title
+        for (let field of this.filterFields) {
+          if (field.key === this.filterKey) {
+            return field.title
           }
-        })
-        return title
+        }
       }
     },
     methods: {
