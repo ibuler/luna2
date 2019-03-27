@@ -11,7 +11,7 @@
       </Dropdown>
       <Tag v-for="(v, k) in tags" :key="k" :name="k" closable @on-close="handleTagClose">{{ v.title }}: {{ v.value }}</Tag>
       <Row style="display: inline-block; padding-left: 5px">
-        <span style="padding-right: 2px">{{ filterTitle }}:</span>
+        <span style="padding-right: 2px" v-if="filterTitle">{{ filterTitle }}:</span>
         <Input placeholder="添加筛选条件" style="max-width: 100px; border: none"></Input>
       </Row>
     </form>
@@ -60,15 +60,13 @@
     },
     computed: {
       filterTitle () {
+        let title = ''
         this.filterFields.forEach((value) => {
           if (value.key === this.filterKey) {
-            let title = value.title
-            console.log('Return', title)
-            return value.key
-            // return value.title
+            title = value.title
           }
         })
-        return ''
+        return title
       }
     },
     methods: {
