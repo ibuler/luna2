@@ -72,9 +72,9 @@
     },
     computed: {
       ...mapState({
-        messageUnreadList: state => state.user.messageUnreadList,
-        messageReadedList: state => state.user.messageReadedList,
-        messageTrashList: state => state.user.messageTrashList,
+        messageUnreadList: state => state.users.messageUnreadList,
+        messageReadedList: state => state.users.messageReadedList,
+        messageTrashList: state => state.users.messageTrashList,
         messageList () {
           return this[listDic[this.currentMessageType]]
         },

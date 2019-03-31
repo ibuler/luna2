@@ -10,10 +10,19 @@ export const getProfile = () => {
   })
 }
 
-export const getUnreadCount = () => {
+export const getUserList = ({ page = 1, pageSize = 15 }) => {
   return axios.request({
-    url: 'message/count',
-    method: 'get'
+    url: `${API_BASE_URL}/users/`,
+    method: 'get',
+    params: { offset: page, limit: pageSize }
+  })
+}
+
+export const getUnreadCount = () => {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function () {
+      resolve(3)
+    }, 300)
   })
 }
 

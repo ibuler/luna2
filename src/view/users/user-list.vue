@@ -32,54 +32,58 @@
   }
 </style>
 <template>
-  <i-card title="用户列表" :disHover="true">
-    <i-row class="action-panel">
-      <i-col class="action" span="12">
+  <Card title="用户列表" :disHover="true">
+    <Row class="action-panel">
+      <Col class="action" span="12">
          <BtnDropdown @on-action-click="handleActionClick" :actions="actions"></BtnDropdown>
-      </i-col>
-      <i-col class="filters" offset="3" span="6">
+      </Col>
+      <Col class="filters" offset="3" span="6">
         <l-table-filter></l-table-filter>
-      </i-col>
-      <i-col span="3" class="setting">
-        <i-button-group>
+      </Col>
+      <Col span="3" class="setting">
+        <ButtonGroup>
           <Button type="default"><Icon type="md-refresh" /></Button>
           <Button type="default"><Icon type="ios-settings" /></Button>
           <Button type="default"><Icon type="md-arrow-down" /></Button>
-        </i-button-group>
-      </i-col>
-    </i-row>
-    <i-row>
-      <i-table border stripe :row-class-name="rowClassName" :columns="columns1" :data="data1">
+        </ButtonGroup>
+      </Col>
+    </Row>
+    <Row>
+      <Table border stripe :columns="columns1" :data="userList">
         <template slot-scope="{ row }" slot="name">
           <router-link :to="{ name: 'user-detail', params: { id: 1 } }">{{ row.name }}</router-link>
           <!--<a :href="row.name">{{ row.name }}</a>-->
         </template>
         <template slot-scope="{ row, index }" slot="action">
-          <i-dropdown trigger="click">
+          <Dropdown trigger="click">
             <Button type="primary" size="small">
               操作
               <Icon type="md-more" />
             </Button>
-            <i-dropdown-menu slot="list">
-              <i-dropdown-item>更新</i-dropdown-item>
-              <i-dropdown-item disabled>删除</i-dropdown-item>
-              <i-dropdown-item divided>测试</i-dropdown-item>
-            </i-dropdown-menu>
-          </i-dropdown>
+            <DropdownMenu slot="list">
+              <DropdownItem>更新</DropdownItem>
+              <DropdownItem disabled>删除</DropdownItem>
+              <DropdownItem divided>测试</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </template>
-      </i-table>
-    </i-row>
-    <i-row>
+      </Table>
+    </Row>
+    <Row>
       <div class="pagination">
-        <Page :total="100" show-total show-sizer show-elevator />
+        <Page :total="userTotal" :page-size.sync="pageSize" :current.sync="currentPage"
+              :page-size-opts="pageSizeOpts" show-total show-sizer show-elevator
+              @on-change="handleGetUserList()" @on-page-size-change="handleGetUserList()"
+        />
       </div>
-    </i-row>
-  </i-card>
+    </Row>
+  </Card>
 </template>
 
 <script>
   import BtnDropdown from '@c/btn-dropdown'
   import LTableFilter from '@c/table-filter'
+  import { mapActions, mapState } from 'vuex'
   export default {
     name: 'user-list',
     components: {
@@ -88,7 +92,11 @@
     },
     data() {
       return {
+        total: 0,
         value4: '',
+        pageSize: 15,
+        currentPage: 1,
+        pageSizeOpts: [15, 25, 50],
         actions: [
           {
             'title': '创建用户',
@@ -103,12 +111,12 @@
         ],
         filterFields: [
           {
-            'title': '用户名',
-            'key': 'username'
-          },
-          {
             'title': '姓名',
             'key': 'name'
+          },
+          {
+            'title': '用户名',
+            'key': 'username'
           },
           {
             'title': '年龄',
@@ -126,12 +134,20 @@
             slot: 'name'
           },
           {
-            title: '年龄',
-            key: 'age'
+            title: '用户名',
+            key: 'username'
           },
           {
-            title: '地址',
-            key: 'address'
+            title: '角色',
+            key: 'role_display'
+          },
+          {
+            title: '用户组',
+            key: 'groups_display'
+          },
+          {
+            title: '来源',
+            key: 'source_display'
           },
           {
             title: '动作',
@@ -139,48 +155,32 @@
             width: 150,
             align: 'center'
           }
-        ],
-        data1: [
-          {
-            name: 'John Brown',
-            age: 18,
-            address: 'New York No. 1 Lake Park',
-            date: '2016-10-03'
-          },
-          {
-            name: 'Jim Green',
-            age: 24,
-            address: 'London No. 1 Lake Park',
-            date: '2016-10-01'
-          },
-          {
-            name: 'Joe Black',
-            age: 30,
-            address: 'Sydney No. 1 Lake Park',
-            date: '2016-10-02'
-          },
-          {
-            name: 'Jon Snow',
-            age: 26,
-            address: 'Ottawa No. 2 Lake Park',
-            date: '2016-10-04'
-          }
         ]
       }
     },
+    computed: {
+      ...mapState({
+        userList: state => state.users.userList,
+        userTotal: state => state.users.userTotal
+      })
+    },
     methods: {
-      rowClassName: function (row, index) {
-        if (index % 2 === 0) {
-          return 'ivu-table-stripe-even'
-        } else return 'ivu-table-stripe-odd'
-      },
+      ...mapActions([
+        'getUserList'
+      ]),
       handleSelect(value) {
         this.value4 = value + ':'
       // this.$refs.input2.$refs.input.focus();
       },
       handleActionClick(name) {
         console.log(name)
+      },
+      handleGetUserList() {
+        this.getUserList({ page: this.currentPage, pageSize: this.pageSize })
       }
+    },
+    created () {
+      this.handleGetUserList()
     }
   }
 </script>

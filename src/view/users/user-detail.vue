@@ -74,7 +74,7 @@
 
               <l-card type="warning" key="usergroup" class="usergroup" style="margin-top: 10px">
                 <p slot="title">
-                  <fa :icon="['fas', 'users']"></fa>
+                  <fa :icon="['fas', 'user']"></fa>
                   用户组
                 </p>
                 <i-select filterable>

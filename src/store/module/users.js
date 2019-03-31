@@ -5,13 +5,15 @@ import { setToken, getToken } from '@/libs/util'
 
 export default {
   state: {
-    userName: '',
+    username: '',
     userId: '',
     avatarImgPath: '',
     token: getToken(),
     access: '',
     hasGetInfo: false,
     unreadCount: 0,
+    userList: [],
+    userTotal: 0,
     messageUnreadList: [],
     messageReadedList: [],
     messageTrashList: [],
@@ -25,7 +27,7 @@ export default {
       state.userId = id
     },
     setUserName (state, name) {
-      state.userName = name
+      state.username = name
     },
     setAccess (state, access) {
       state.access = access
@@ -36,6 +38,12 @@ export default {
     },
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
+    },
+    setUserList (state, users) {
+      state.userList = users
+    },
+    setUserTotal(state, total) {
+      state.userTotal = total
     },
     setMessageCount (state, count) {
       state.unreadCount = count
@@ -119,9 +127,25 @@ export default {
         }
       })
     },
+    getUserList({state, commit}, { page=1, pageSize=15 }) {
+      return new Promise((resolve, reject) => {
+        try {
+          users.getUserList({ page: page, pageSize: pageSize }).then(res => {
+            const data = res.data
+            commit('setUserList', data.results)
+            commit('setUserTotal', data.count)
+            resolve(data)
+          }).catch(err => {
+            reject(err)
+          })
+        } catch (error) {
+          reject(error)
+        }
+      })
+    },
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount ({ state, commit }) {
-      getUnreadCount().then(res => {
+      users.getUnreadCount().then(res => {
         const { data } = res
         commit('setMessageCount', data)
       })

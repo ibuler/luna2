@@ -32,6 +32,7 @@ Vue.component('fa', FontAwesomeIcon)
 if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(iView, {
+  transfer: true,
   i18n: (key, value) => i18n.t(key, value)
 });
 /**

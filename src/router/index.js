@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './routers'
-import store from '@/store'
 import iView from 'iview'
-import { setToken, getToken, canTurnTo, setTitle } from '@/libs/util'
+import store from '@/store'
 import config from '@/config'
+import routes from './routers'
+import { setToken, getToken, canTurnTo, setTitle } from '@/libs/util'
 const { homeName } = config
 
 Vue.use(Router)
@@ -36,8 +36,8 @@ router.beforeEach((to, from, next) => {
       name: homeName // 跳转到homeName页
     })
   } else {
-    if (store.state.user.hasGetInfo) {
-      turnTo(to, store.state.user.access, next)
+    if (store.state.users.hasGetInfo) {
+      turnTo(to, store.state.users.access, next)
     } else {
       store.dispatch('getProfile').then(user => {
         // 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']

@@ -1,5 +1,6 @@
 import {
   getProfile,
+  getUserList,
   getUnreadCount,
   getMessage,
   getContentByMsgId,
@@ -10,6 +11,7 @@ import {
 
 const users = {
   getProfile,
+  getUserList,
   getUnreadCount,
   getMessage,
   getContentByMsgId,

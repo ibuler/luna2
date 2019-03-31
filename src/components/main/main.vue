@@ -97,7 +97,7 @@
         return this.$store.state.app.tagRouter
       },
       userAvatar () {
-        return this.$store.state.user.avatarImgPath
+        return this.$store.state.users.avatarImgPath
       },
       cacheList () {
         const list = ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []]
@@ -113,7 +113,7 @@
         return this.$store.state.app.hasReadErrorPage
       },
       unreadCount () {
-        return this.$store.state.user.unreadCount
+        return this.$store.state.users.unreadCount
       }
     },
     methods: {
