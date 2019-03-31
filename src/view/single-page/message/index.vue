@@ -7,7 +7,7 @@
             <span class="category-title">未读消息</span><Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
           </MenuItem>
           <MenuItem name="readed">
-            <span class="category-title">已读消息</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageReadedCount"></Badge>
+            <span class="category-title">已读消息</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageReadCount"></Badge>
           </MenuItem>
           <MenuItem name="trash">
             <span class="category-title">回收站</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageTrashCount"></Badge>
@@ -86,7 +86,7 @@
       }),
       ...mapGetters([
         'messageUnreadCount',
-        'messageReadedCount',
+        'messageReadCount',
         'messageTrashCount'
       ])
     },

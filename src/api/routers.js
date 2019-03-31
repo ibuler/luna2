@@ -1,4 +1,4 @@
-import axios from '@/libs/api.request'
+import axios from '@/libs/axios'
 
 export const getRouterReq = (access) => {
   return axios.request({

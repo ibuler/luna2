@@ -78,8 +78,8 @@
 </template>
 
 <script>
-  import BtnDropdown from '_c/btn-dropdown'
-  import LTableFilter from '_c/table-filter'
+  import BtnDropdown from '@c/btn-dropdown'
+  import LTableFilter from '@c/table-filter'
   export default {
     name: 'user-list',
     components: {

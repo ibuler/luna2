@@ -16,6 +16,7 @@ module.exports = {
     'no-undef': 'off',
     'camelcase': 'off',
     'indent': 'off',
+    'semi': ['warn', 'never'],
     'vue/script-indent': ['error', 2, {'baseIndent': 1}],
   },
   parserOptions: {

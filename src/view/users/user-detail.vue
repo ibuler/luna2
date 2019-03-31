@@ -94,7 +94,7 @@
 </template>
 
 <script>
-  import { LCard, LTableCard } from '_c/card'
+  import { LCard, LTableCard } from '@c/card'
   export default {
     name: 'user-detail',
     components: {

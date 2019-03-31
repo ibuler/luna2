@@ -1,31 +1,12 @@
-import axios from '@/libs/api.request'
+// import axios from '@/libs/api.request'
+import axios from '@/libs/axios'
 
-export const login = ({ userName, password }) => {
-  const data = {
-    userName,
-    password
-  }
-  return axios.request({
-    url: 'login',
-    data,
-    method: 'post'
-  })
-}
+const API_BASE_URL = '/api/users/v1'
 
-export const getUserInfo = (token) => {
+export const getProfile = () => {
   return axios.request({
-    url: 'get_info',
-    params: {
-      token
-    },
+    url: `${API_BASE_URL}/profile/`,
     method: 'get'
-  })
-}
-
-export const logout = (token) => {
-  return axios.request({
-    url: 'logout',
-    method: 'post'
   })
 }
 

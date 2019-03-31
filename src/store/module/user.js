@@ -1,14 +1,6 @@
-import {
-  login,
-  logout,
-  getUserInfo,
-  getMessage,
-  getContentByMsgId,
-  hasRead,
-  removeReaded,
-  restoreTrash,
-  getUnreadCount
-} from '@/api/user'
+import users from '@/api/users/'
+import auth from '@/api/authentication'
+
 import { setToken, getToken } from '@/libs/util'
 
 export default {
@@ -69,18 +61,20 @@ export default {
   },
   getters: {
     messageUnreadCount: state => state.messageUnreadList.length,
-    messageReadedCount: state => state.messageReadedList.length,
+    messageReadCount: state => state.messageReadedList.length,
     messageTrashCount: state => state.messageTrashList.length
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password }) {
-      userName = userName.trim()
+    handleLogin ({ commit }, { username, password }) {
+      username = username ? username.trim() : ''
+      password = password ? password.trim() : ''
       return new Promise((resolve, reject) => {
-        login({
-          userName,
+        auth.login({
+          username,
           password
         }).then(res => {
+          console.log(res)
           const data = res.data
           commit('setToken', data.token)
           resolve()
@@ -92,7 +86,7 @@ export default {
     // 退出登录
     handleLogOut ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        auth.logout(state.token).then(() => {
           commit('setToken', '')
           commit('setAccess', [])
           resolve()
@@ -106,15 +100,15 @@ export default {
       })
     },
     // 获取用户相关信息
-    getUserInfo ({ state, commit }) {
+    getProfile ({ state, commit }) {
       return new Promise((resolve, reject) => {
         try {
-          getUserInfo(state.token).then(res => {
+          users.getProfile().then(res => {
             const data = res.data
-            commit('setAvatar', data.avatar)
+            commit('setAvatar', data.avatar_url)
             commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
+            commit('setUserId', data.id)
+            commit('setAccess', ['super_admin'])
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {
@@ -135,7 +129,7 @@ export default {
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        getMessage().then(res => {
+        users.getMessage().then(res => {
           const { unread, readed, trash } = res.data
           commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
           commit('setMessageReadedList', readed.map(_ => {
@@ -159,7 +153,7 @@ export default {
         if (contentItem) {
           resolve(contentItem)
         } else {
-          getContentByMsgId(msg_id).then(res => {
+          users.getContentByMsgId(msg_id).then(res => {
             const content = res.data
             commit('updateMessageContentStore', { msg_id, content })
             resolve(content)
@@ -170,7 +164,7 @@ export default {
     // 把一个未读消息标记为已读
     hasRead ({ state, commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        hasRead(msg_id).then(() => {
+        users.hasRead(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageUnreadList',
             to: 'messageReadedList',
@@ -186,7 +180,7 @@ export default {
     // 删除一个已读消息到回收站
     removeReaded ({ commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        removeReaded(msg_id).then(() => {
+        users.removeReaded(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageReadedList',
             to: 'messageTrashList',
@@ -201,7 +195,7 @@ export default {
     // 还原一个已删除消息到已读消息
     restoreTrash ({ commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        restoreTrash(msg_id).then(() => {
+        users.restoreTrash(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageTrashList',
             to: 'messageReadedList',

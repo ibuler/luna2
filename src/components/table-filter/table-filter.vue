@@ -1,25 +1,30 @@
 <template>
   <div class="filter-field">
-    <form style="border: 1px solid #dcdee2; border-radius: 3px;">
+    <form style="border: 1px solid #dcdee2; border-radius: 3px;" @submit.prevent>
       <Dropdown placement="bottom-start" @on-click="handleMenuItemClick">
-        <a href="javascript:void(0)" style="padding-right: 8px; padding-left: 8px">
+        <a href="javascript:void(0)" style="padding-right: 6px; padding-left: 8px">
           <Icon type="md-arrow-dropdown" slot="prefix"/>
         </a>
         <DropdownMenu slot="list">
           <DropdownItem  v-for="option in filterFields" :value="option.title" :name="option.key" :key="option.key">{{ option.title }}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Tag v-for="(v, k) in tags" :key="k" :name="k" closable @on-close="handleTagClose">{{ v.title }}: {{ v.value }}</Tag>
+      <Tag v-for="(v, k) in tags" :key="k" :name="k" closable @on-close="handleTagClose"><strong v-if="v.title">{{ v.title }}{{ tagSeparator}}</strong> {{ v.value }}</Tag>
       <Row style="display: inline-block; padding-left: 5px">
-        <span style="padding-right: 2px" v-if="filterTitle">{{ filterTitle }}:</span>
-        <Input placeholder="添加筛选条件" style="max-width: 100px; border: none"></Input>
+        <span style="padding-right: 2px" v-if="filterTitle">{{ filterTitle }}{{ tagSeparator }}</span>
+        <Input placeholder="添加筛选条件" @on-enter="handleConfirm"
+               v-model="filterValue" ref="filterInput" style="max-width: 100px; border: none;"
+        >
+        </Input>
       </Row>
+      <a @click="handleSearch">
+        <Icon type="ios-search" style="float: right; margin: 10px 8px"/>
+      </a>
     </form>
   </div>
 </template>
 
 <script>
-  import Vue from 'vue'
   export default {
     name: 'LTableFilter',
     props: {
@@ -45,16 +50,14 @@
     },
     data() {
       return {
+        tagSeparator: ':',
         filterKey: '',
+        filterValue: '',
         tags: {
-          username: {
-            title: '用户名',
-            value: 'guanghongwei'
-          },
-          age: {
-            title: '年龄',
-            value: 18
-          }
+          // username: {
+          //   title: '用户名',
+          //   value: 'guanghongwei'
+          // }
         }
       }
     },
@@ -69,10 +72,19 @@
     },
     methods: {
       handleTagClose (evt, name) {
-        Vue.delete(this.tags, name)
+        this.$delete(this.tags, name)
       },
       handleMenuItemClick (name) {
         this.filterKey = name
+        this.$refs.filterInput.focus()
+      },
+      handleConfirm () {
+        this.$set(this.tags, this.filterKey, { title: this.filterTitle, value: this.filterValue })
+        this.filterKey = ''
+        this.filterValue = ''
+      },
+      handleSearch () {
+        console.log('handle search')
       }
     }
   }
@@ -82,5 +94,10 @@
   .filter-field >>> .ivu-input, .filter-field .ivu-input:focus {
     border: none;
     box-shadow: none;
+    padding: 0;
+    font-size: 13px;
+  }
+  a {
+    color: #000;
   }
 </style>
