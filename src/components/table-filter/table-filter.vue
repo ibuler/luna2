@@ -9,7 +9,9 @@
           <DropdownItem  v-for="option in filterFields" :value="option.title" :name="option.key" :key="option.key">{{ option.title }}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Tag v-for="(v, k) in tags" :key="k" :name="k" closable @on-close="handleTagClose"><strong v-if="v.title">{{ v.title }}{{ tagSeparator}}</strong> {{ v.value }}</Tag>
+      <Tag v-for="(v, k) in filterTags" :key="k" :name="k" closable @on-close="handleTagClose">
+        <strong v-if="v.title">{{ v.title }}{{ tagSeparator}}</strong> {{ v.value }}
+      </Tag>
       <Row style="display: inline-block; padding-left: 5px">
         <span style="padding-right: 2px" v-if="filterTitle">{{ filterTitle }}{{ tagSeparator }}</span>
         <Input placeholder="添加筛选条件" @on-enter="handleConfirm"
@@ -53,11 +55,7 @@
         tagSeparator: ':',
         filterKey: '',
         filterValue: '',
-        tags: {
-          // username: {
-          //   title: '用户名',
-          //   value: 'guanghongwei'
-          // }
+        filterTags: {
         }
       }
     },
@@ -68,18 +66,39 @@
             return field.title
           }
         }
+      },
+      filterMaps () {
+        let data = {}
+        console.log(123123123)
+        for (let key in this.filterTags) {
+          let value = this.filterTags[key]['value']
+          if (key === '') {
+            key = 'search'
+          }
+          data[key] = value
+        }
+        console.log(data)
+        return data
+      }
+    },
+    watch: {
+      filterTags: function (val) {
+        if (val) {
+          console.log('Emit dta')
+          this.$emit('on-filters-change', this.filterMaps)
+        }
       }
     },
     methods: {
       handleTagClose (evt, name) {
-        this.$delete(this.tags, name)
+        this.$delete(this.filterTags, name)
       },
       handleMenuItemClick (name) {
         this.filterKey = name
         this.$refs.filterInput.focus()
       },
       handleConfirm () {
-        this.$set(this.tags, this.filterKey, { title: this.filterTitle, value: this.filterValue })
+        this.$set(this.filterTags, this.filterKey, { title: this.filterTitle, value: this.filterValue })
         this.filterKey = ''
         this.filterValue = ''
       },
