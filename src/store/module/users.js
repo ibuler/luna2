@@ -127,7 +127,7 @@ export default {
         }
       })
     },
-    getUserList({state, commit}, { page=1, pageSize=15 }) {
+    getUserList({ state, commit }, { page = 1, pageSize = 15 }) {
       return new Promise((resolve, reject) => {
         try {
           users.getUserList({ page: page, pageSize: pageSize }).then(res => {
