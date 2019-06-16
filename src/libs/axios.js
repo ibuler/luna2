@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '@/config'
+import { setToken } from './util'
 
 const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
 
@@ -37,8 +38,8 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use(
   res => {
-    if (res.data.errno === 999) {
-      console.log('token过期')
+    if (res.status === 403) {
+      setToken('')
     }
     return res
   },

@@ -6,7 +6,11 @@ export const TOKEN_KEY = 'token'
 
 export const setToken = (token) => {
   // Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
-  localStorage.setItem(TOKEN_KEY, 'Bearer ' + token)
+  if (token) {
+    localStorage.setItem(TOKEN_KEY, 'Bearer ' + token)
+  } else {
+    localStorage.setItem(TOKEN_KEY, '')
+  }
 }
 
 export const getToken = () => {

@@ -10,11 +10,15 @@ export const getProfile = () => {
   })
 }
 
-export const getUserList = ({ page = 1, pageSize = 15 }) => {
+export const getUserList = ({ page = 1, pageSize = 15, filters }) => {
+  let params = { offset: page - 1, limit: pageSize }
+  if (filters) {
+    params = Object.assign(params, filters)
+  }
   return axios.request({
     url: `${API_BASE_URL}/users/`,
     method: 'get',
-    params: { offset: page, limit: pageSize }
+    params: params
   })
 }
 

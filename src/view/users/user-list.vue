@@ -34,11 +34,11 @@
 <template>
   <Card title="用户列表" :disHover="true">
     <Row class="action-panel">
-      <Col class="action" span="12">
+      <Col class="action" span="3">
          <BtnDropdown @on-action-click="handleActionClick" :actions="actions"></BtnDropdown>
       </Col>
-      <Col class="filters" offset="3" span="6">
-        <l-table-filter></l-table-filter>
+      <Col class="filters" span="18" >
+          <l-table-filter @on-filters-change="filterUserList"></l-table-filter>
       </Col>
       <Col span="3" class="setting">
         <ButtonGroup>
@@ -49,10 +49,9 @@
       </Col>
     </Row>
     <Row>
-      <Table border stripe :columns="columns1" :data="userList">
+      <Table border stripe :columns="columns" :data="userList">
         <template slot-scope="{ row }" slot="name">
           <router-link :to="{ name: 'user-detail', params: { id: 1 } }">{{ row.name }}</router-link>
-          <!--<a :href="row.name">{{ row.name }}</a>-->
         </template>
         <template slot-scope="{ row, index }" slot="action">
           <Dropdown trigger="click">
@@ -71,9 +70,9 @@
     </Row>
     <Row>
       <div class="pagination">
-        <Page :total="userTotal" :page-size.sync="pageSize" :current.sync="currentPage"
-              :page-size-opts="pageSizeOpts" show-total show-sizer show-elevator
-              @on-change="handleGetUserList()" @on-page-size-change="handleGetUserList()"
+        <Page :total="userTotal" :page-size.sync="page.size" :current.sync="currentPage"
+              :page-size-opts="page.sizeOpts" show-total show-sizer show-elevator
+              @on-page-size-change="handlePageSizeChange" @on-change="handleGetUserList"
         />
       </div>
     </Row>
@@ -94,9 +93,8 @@
       return {
         total: 0,
         value4: '',
-        pageSize: 15,
+        page: { size: 15, sizeOpts: [15, 25, 50] },
         currentPage: 1,
-        pageSizeOpts: [15, 25, 50],
         actions: [
           {
             'title': '创建用户',
@@ -123,7 +121,7 @@
             'key': 'age'
           }
         ],
-        columns1: [
+        columns: [
           {
             type: 'selection',
             width: 60,
@@ -168,15 +166,22 @@
       ...mapActions([
         'getUserList'
       ]),
-      handleSelect(value) {
+      handleSelect (value) {
         this.value4 = value + ':'
       // this.$refs.input2.$refs.input.focus();
       },
-      handleActionClick(name) {
+      handleActionClick (name) {
         console.log(name)
       },
-      handleGetUserList() {
-        this.getUserList({ page: this.currentPage, pageSize: this.pageSize })
+      handleGetUserList () {
+        this.getUserList({ page: this.currentPage, pageSize: this.page.size })
+      },
+      handlePageSizeChange (size) {
+        this.page.size = size
+        this.handleGetUserList()
+      },
+      filterUserList (filters) {
+        this.getUserList({ page: this.currentPage, pageSize: this.page.size, filters: filters })
       }
     },
     created () {

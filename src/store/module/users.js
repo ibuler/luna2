@@ -127,10 +127,11 @@ export default {
         }
       })
     },
-    getUserList({ state, commit }, { page = 1, pageSize = 15 }) {
+    // getUserList({ state, commit }, { page = 1, pageSize = 15 }) {
+    getUserList({ state, commit }, { page = 1, pageSize = 15, filters }) {
       return new Promise((resolve, reject) => {
         try {
-          users.getUserList({ page: page, pageSize: pageSize }).then(res => {
+          users.getUserList({ page: page, pageSize: pageSize, filters: filters }).then(res => {
             const data = res.data
             commit('setUserList', data.results)
             commit('setUserTotal', data.count)
