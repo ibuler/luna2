@@ -9,9 +9,9 @@ Mock.setup({
 })
 
 // 登录相关和获取用户信息
-Mock.mock(/\/api\/authentication\/v1\/auth\//, login)
-Mock.mock(/\/get_info/, getUserInfo)
-Mock.mock(/\/api\/authentication\/v1\/logout\//, logout)
+Mock.mock(`/api/authentication/v1/login/`, login)
+Mock.mock(`/api/users/v1/profile/`, getUserInfo)
+Mock.mock(`/api/authentication/v1/logout/`, logout)
 Mock.mock(/\/get_table_data/, getTableData)
 Mock.mock(/\/get_drag_list/, getDragList)
 Mock.mock(/\/save_error_logger/, 'success')
