@@ -6,7 +6,7 @@ export const login = ({ username, password }) => {
     password
   }
   return axios.request({
-    url: 'api/authentication/v1/auth/',
+    url: '/api/authentication/v1/auth/',
     data,
     method: 'post'
   })
@@ -14,7 +14,7 @@ export const login = ({ username, password }) => {
 
 export const logout = (token) => {
   return axios.request({
-    url: 'logout',
+    url: '/api/authentication/v1/logout/',
     method: 'post'
   })
 }

@@ -1,24 +1,68 @@
 import { getParams } from '@/libs/util'
 const USER_MAP = {
-  super_admin: {
-    name: 'super_admin',
-    user_id: '1',
-    access: ['super_admin', 'admin'],
-    token: 'super_admin',
-    avatar: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
-  },
   admin: {
-    name: 'admin',
-    user_id: '2',
-    access: ['admin'],
-    token: 'admin',
-    avatar: 'https://avatars0.githubusercontent.com/u/20942571?s=460&v=4'
+    'token': '27a0a4d0ad75478a867ee57747e8a8a4',
+    'user': {
+      'id': '2c56fd37-db65-40ed-b787-b65a98635f12',
+      'name': 'Administrator',
+      'username': 'admin',
+      'email': 'admin@mycomany.com',
+      'groups': ['3efa7a71-3589-4b48-b163-8bcf777706c5'],
+      'groups_display': 'Default',
+      'role': 'Admin',
+      'role_display': '管理员',
+      'wechat': '',
+      'phone': null,
+      'otp_level': 0,
+      'comment': '',
+      'source': 'local',
+      'source_display': 'Local',
+      'is_valid': true,
+      'is_expired': false,
+      'is_active': true,
+      'created_by': 'Administrator',
+      'is_first_login': false,
+      'date_password_last_updated': '2019-04-19 10:35:02 +0800',
+      'date_expired': '2089-04-01 10:34:00 +0800',
+      'avatar_url': '/static/img/avatar/admin.png'
+    }
+  },
+  user: {
+    'token': '37a0a4d0ad70478a867ee57747e8a8ah',
+    'user': {
+      'id': '3c56fd37-db65-40ed-b787-b65a98635f12',
+      'name': 'ibuler',
+      'username': 'ibuler',
+      'email': 'ibuler@mycomany.com',
+      'groups': ['3efa7a71-3589-4b48-b163-8bcf777706c5'],
+      'groups_display': 'Default',
+      'role': 'Admin',
+      'role_display': '管理员',
+      'wechat': '',
+      'phone': null,
+      'otp_level': 0,
+      'comment': '',
+      'source': 'local',
+      'source_display': 'Local',
+      'is_valid': true,
+      'is_expired': false,
+      'is_active': true,
+      'created_by': 'Administrator',
+      'is_first_login': false,
+      'date_password_last_updated': '2019-04-19 10:35:02 +0800',
+      'date_expired': '2089-04-01 10:34:00 +0800',
+      'avatar_url': '/static/img/avatar/admin.png'
+    }
   }
 }
 
 export const login = req => {
   req = JSON.parse(req.body)
-  return { token: USER_MAP[req.userName].token }
+  if (req.username === 'admin') {
+    return USER_MAP.admin
+  } else {
+    return USER_MAP.user
+  }
 }
 
 export const getUserInfo = req => {
